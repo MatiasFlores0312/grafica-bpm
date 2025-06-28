@@ -9,16 +9,16 @@
   <canvas id="miGrafica" width="400" height="200"></canvas>
 
   <script>
-    let miGrafico;
+    let miGrafico; // Gráfico global
 
-    // ✅ Definición explícita en el objeto global
+    // ✅ Esta función debe estar definida en el ámbito global
     window.actualizarGrafico = function(bpm, fechas) {
       const datosBPM = bpm.split(',').map(Number);
       const etiquetas = fechas.split(',');
 
       const ctx = document.getElementById('miGrafica').getContext('2d');
 
-      // Destruye el gráfico anterior si existe
+      // Si ya hay un gráfico, destruirlo antes de crear uno nuevo
       if (miGrafico) {
         miGrafico.destroy();
       }
