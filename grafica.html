@@ -9,7 +9,7 @@
   <canvas id="miGrafica" width="400" height="200"></canvas>
 
   <script>
-    let miGrafica;  // para almacenar la instancia del gráfico
+    let miGrafico; // Variable global para el gráfico
 
     function actualizarGrafico(bpm, fechas) {
       const datosBPM = bpm.split(',').map(Number);
@@ -17,11 +17,13 @@
 
       const ctx = document.getElementById('miGrafica').getContext('2d');
 
-      if (miGrafica) {
-        miGrafica.destroy(); // eliminar gráfica anterior
+      // Si ya existe un gráfico, lo destruimos para evitar superposición
+      if (miGrafico) {
+        miGrafico.destroy();
       }
 
-      miGrafica = new Chart(ctx, {
+      // Creamos un nuevo gráfico con los datos recibidos
+      miGrafico = new Chart(ctx, {
         type: 'line',
         data: {
           labels: etiquetas,
@@ -29,19 +31,22 @@
             label: 'Frecuencia cardíaca (BPM)',
             data: datosBPM,
             borderColor: 'blue',
-            borderWidth: 2
+            borderWidth: 2,
+            fill: false,
+            pointRadius: 4,
+            pointHoverRadius: 6
           }]
         },
         options: {
           responsive: true,
           scales: {
-            y: { beginAtZero: false }
+            y: {
+              beginAtZero: false
+            }
           }
         }
       });
     }
-
-    // No llamamos a actualizarGrafico() aquí. Solo desde AppInventor.
   </script>
 </body>
 </html>
