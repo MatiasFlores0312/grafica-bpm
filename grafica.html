@@ -8,17 +8,16 @@
 <body>
   <canvas id="miGrafica" width="400" height="200"></canvas>
 
-  <script>
-    let miGrafico; // Gráfico global
+  <script type="text/javascript">
+    let miGrafico;
 
-    // ✅ Esta función debe estar definida en el ámbito global
+    // Definir como global para que MIT App pueda llamarla
     window.actualizarGrafico = function(bpm, fechas) {
       const datosBPM = bpm.split(',').map(Number);
       const etiquetas = fechas.split(',');
 
       const ctx = document.getElementById('miGrafica').getContext('2d');
 
-      // Si ya hay un gráfico, destruirlo antes de crear uno nuevo
       if (miGrafico) {
         miGrafico.destroy();
       }
@@ -46,7 +45,7 @@
           }
         }
       });
-    }
+    };
   </script>
 </body>
 </html>
