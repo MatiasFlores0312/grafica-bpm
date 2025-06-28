@@ -1,38 +1,51 @@
-<script type="text/javascript">
-  window.actualizarGrafico = function(bpm, fechas) {
-    const datosBPM = bpm.split(',').map(Number);
-    const etiquetas = fechas.split(',');
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Gráfica BPM</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <canvas id="miGrafica" width="400" height="200"></canvas>
 
-    const ctx = document.getElementById('miGrafica').getContext('2d');
+  <script type="text/javascript">
+    // Hacemos visible la función para App Inventor usando "window."
+    window.actualizarGrafico = function(bpm, fechas) {
+      const datosBPM = bpm.split(',').map(Number);
+      const etiquetas = fechas.split(',');
 
-    // Si ya existe un gráfico, lo destruimos para evitar superposición
-    if (window.miGrafico) {
-      window.miGrafico.destroy();
-    }
+      const ctx = document.getElementById('miGrafica').getContext('2d');
 
-    // Creamos un nuevo gráfico con los datos recibidos
-    window.miGrafico = new Chart(ctx, {
-      type: 'line',
-      data: {
-        labels: etiquetas,
-        datasets: [{
-          label: 'Frecuencia cardíaca (BPM)',
-          data: datosBPM,
-          borderColor: 'blue',
-          borderWidth: 2,
-          fill: false,
-          pointRadius: 4,
-          pointHoverRadius: 6
-        }]
-      },
-      options: {
-        responsive: true,
-        scales: {
-          y: {
-            beginAtZero: false
+      // Si ya existe un gráfico, lo destruimos para actualizarlo
+      if (window.miGrafico) {
+        window.miGrafico.destroy();
+      }
+
+      // Crear un nuevo gráfico
+      window.miGrafico = new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: etiquetas,
+          datasets: [{
+            label: 'Frecuencia cardíaca (BPM)',
+            data: datosBPM,
+            borderColor: 'blue',
+            borderWidth: 2,
+            fill: false,
+            pointRadius: 4,
+            pointHoverRadius: 6
+          }]
+        },
+        options: {
+          responsive: true,
+          scales: {
+            y: {
+              beginAtZero: false
+            }
           }
         }
-      }
-    });
-  };
-</script>
+      });
+    };
+  </script>
+</body>
+</html>
