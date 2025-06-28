@@ -8,21 +8,22 @@
 <body>
   <canvas id="miGrafica" width="400" height="200"></canvas>
 
-  <script type="text/javascript">
-    // Hacemos visible la función para App Inventor usando "window."
+  <script>
+    let miGrafico;
+
+    // ✅ Definición explícita en el objeto global
     window.actualizarGrafico = function(bpm, fechas) {
       const datosBPM = bpm.split(',').map(Number);
       const etiquetas = fechas.split(',');
 
       const ctx = document.getElementById('miGrafica').getContext('2d');
 
-      // Si ya existe un gráfico, lo destruimos para actualizarlo
-      if (window.miGrafico) {
-        window.miGrafico.destroy();
+      // Destruye el gráfico anterior si existe
+      if (miGrafico) {
+        miGrafico.destroy();
       }
 
-      // Crear un nuevo gráfico
-      window.miGrafico = new Chart(ctx, {
+      miGrafico = new Chart(ctx, {
         type: 'line',
         data: {
           labels: etiquetas,
@@ -45,7 +46,7 @@
           }
         }
       });
-    };
+    }
   </script>
 </body>
 </html>
