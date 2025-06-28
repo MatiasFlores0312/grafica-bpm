@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Gráfica BPM</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <canvas id="miGrafica" width="400" height="200"></canvas>
+
+  <script>
+    function actualizarGrafico(bpm, fechas) {
+      const ctx = document.getElementById('miGrafica').getContext('2d');
+      const datosBPM = bpm.split(',').map(Number);
+      const etiquetas = fechas.split(',');
+
+      new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: etiquetas,
+          datasets: [{
+            label: 'Frecuencia cardíaca (BPM)',
+            data: datosBPM,
+            borderColor: 'blue',
+            borderWidth: 2,
+            fill: false
+          }]
+        },
+        options: {
+          responsive: true,
+          scales: {
+            y: {
+              beginAtZero: false
+            }
+          }
+        }
+      });
+    }
+
+    // SOLO PARA PRUEBA LOCAL EN NAVEGADOR: 
+    // descomenta esta línea si quieres testearlo en tu PC:
+    // actualizarGrafico("82,85,78,91,88", "17:45,17:50,17:55,18:00,18:05");
+  </script>
+</body>
+</html>
