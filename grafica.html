@@ -1,52 +1,38 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="UTF-8">
-  <title>Gráfica BPM</title>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-</head>
-<body>
-  <canvas id="miGrafica" width="400" height="200"></canvas>
+<script type="text/javascript">
+  window.actualizarGrafico = function(bpm, fechas) {
+    const datosBPM = bpm.split(',').map(Number);
+    const etiquetas = fechas.split(',');
 
-  <script>
-    let miGrafico; // Variable global para el gráfico
+    const ctx = document.getElementById('miGrafica').getContext('2d');
 
-    function actualizarGrafico(bpm, fechas) {
-      const datosBPM = bpm.split(',').map(Number);
-      const etiquetas = fechas.split(',');
+    // Si ya existe un gráfico, lo destruimos para evitar superposición
+    if (window.miGrafico) {
+      window.miGrafico.destroy();
+    }
 
-      const ctx = document.getElementById('miGrafica').getContext('2d');
-
-      // Si ya existe un gráfico, lo destruimos para evitar superposición
-      if (miGrafico) {
-        miGrafico.destroy();
-      }
-
-      // Creamos un nuevo gráfico con los datos recibidos
-      miGrafico = new Chart(ctx, {
-        type: 'line',
-        data: {
-          labels: etiquetas,
-          datasets: [{
-            label: 'Frecuencia cardíaca (BPM)',
-            data: datosBPM,
-            borderColor: 'blue',
-            borderWidth: 2,
-            fill: false,
-            pointRadius: 4,
-            pointHoverRadius: 6
-          }]
-        },
-        options: {
-          responsive: true,
-          scales: {
-            y: {
-              beginAtZero: false
-            }
+    // Creamos un nuevo gráfico con los datos recibidos
+    window.miGrafico = new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: etiquetas,
+        datasets: [{
+          label: 'Frecuencia cardíaca (BPM)',
+          data: datosBPM,
+          borderColor: 'blue',
+          borderWidth: 2,
+          fill: false,
+          pointRadius: 4,
+          pointHoverRadius: 6
+        }]
+      },
+      options: {
+        responsive: true,
+        scales: {
+          y: {
+            beginAtZero: false
           }
         }
-      });
-    }
-  </script>
-</body>
-</html>
+      }
+    });
+  };
+</script>
