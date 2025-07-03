@@ -4,14 +4,29 @@
   <meta charset="UTF-8">
   <title>Gráfica BPM</title>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: white;
+    }
+
+    canvas {
+      max-width: 100%;
+      max-height: 100%;
+    }
+  </style>
 </head>
 <body>
-  <canvas id="miGrafica" width="400" height="200"></canvas>
+  <canvas id="miGrafica"></canvas>
 
   <script type="text/javascript">
     let miGrafico;
 
-    // Definir como global para que MIT App pueda llamarla
     window.actualizarGrafico = function(bpm, fechas) {
       const datosBPM = bpm.split(',').map(Number);
       const etiquetas = fechas.split(',');
@@ -38,6 +53,7 @@
         },
         options: {
           responsive: true,
+          maintainAspectRatio: false,
           scales: {
             y: {
               beginAtZero: false
