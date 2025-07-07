@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta charset="UTF-8">
-  <title>Gráfica BPM</title>
+  <title>Gráfica BPM y SpO2</title>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <style>
     body {
@@ -27,8 +27,10 @@
   <script type="text/javascript">
     let miGrafico;
 
-    window.actualizarGrafico = function(bpm, fechas) {
+    // bpm = "70,75,72"   fechas = "10:10,10:11,10:12"   spo2 = "98,97,99"
+    window.actualizarGrafico = function(bpm, fechas, spo2) {
       const datosBPM = bpm.split(',').map(Number);
+      const datosSpO2 = spo2.split(',').map(Number);
       const etiquetas = fechas.split(',');
 
       const ctx = document.getElementById('miGrafica').getContext('2d');
@@ -41,15 +43,26 @@
         type: 'line',
         data: {
           labels: etiquetas,
-          datasets: [{
-            label: 'Frecuencia cardíaca (BPM)',
-            data: datosBPM,
-            borderColor: 'blue',
-            borderWidth: 2,
-            fill: false,
-            pointRadius: 4,
-            pointHoverRadius: 6
-          }]
+          datasets: [
+            {
+              label: 'Frecuencia cardíaca (BPM)',
+              data: datosBPM,
+              borderColor: 'blue',
+              borderWidth: 2,
+              fill: false,
+              pointRadius: 4,
+              pointHoverRadius: 6
+            },
+            {
+              label: 'Oxigenación (SpO2%)',
+              data: datosSpO2,
+              borderColor: 'green',
+              borderWidth: 2,
+              fill: false,
+              pointRadius: 4,
+              pointHoverRadius: 6
+            }
+          ]
         },
         options: {
           responsive: true,
